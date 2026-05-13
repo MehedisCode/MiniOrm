@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MiniOrm.Migrations/MiniOrm.Migrations.csproj" />
+  <Project Path="MiniOrm/MiniOrm.csproj" />
+</Solution>
