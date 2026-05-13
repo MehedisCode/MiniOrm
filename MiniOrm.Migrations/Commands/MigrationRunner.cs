@@ -257,25 +257,16 @@ public class MigrationRunner
 
     private string ExtractAllDownBlocks(string content)
     {
-        var downStatements = new List<string>();
+        var parts = content.Split("-- down", StringSplitOptions.RemoveEmptyEntries);
 
-        // split by -- down to get each down section
-        var sections = content.Split("-- down",
-            StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (var section in sections)
+        if (parts.Length < 2)
         {
-            string downPart = section.Trim();
-
-            if (!string.IsNullOrWhiteSpace(downPart))
-                downStatements.Add(downPart);
+            Console.WriteLine("No -- down section found in migration file.");
+            return string.Empty;
         }
+        string downSql = parts[1].Trim();
 
-        // reverse so tables are dropped in reverse order
-        // (safer if you ever add foreign keys)
-        downStatements.Reverse();
-
-        return string.Join("\n\n", downStatements);
+        return downSql;
     }
 
     // =========================================
